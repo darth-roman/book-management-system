@@ -1,4 +1,3 @@
-import { json } from "sequelize";
 import BookModel from "../models/Book.model.js";
 
 const getAllBooks = async (req, res) => {
@@ -54,9 +53,39 @@ const insertABook = async (req, res) => {
     }
 }
 
+const updateABook = async (req, res) => {
+    try {
+        const bookId = req.params.id
+        const rowsAffected = await BookModel.update(req.body, {
+            where:{
+                book_id: bookId
+            }
+        })
+        if(rowsAffected[0] === 0) res.status(404).json({message: `No book has been updated: ${bookId}`})
+        res.status(200).json({message: `Updated ${rowsAffected} rows`})
+    }catch(error) {
+        throw new Error(error)
+    }
+}
 
+const deleteABook = async (req, res) => {
+    try {
+        const bookId = req.params.id
+        const deletedRows = await BookModel.destroy({
+            where:{
+                book_id: bookId
+            }
+        })
+        if(deletedRows === 0) res.status(404).json({message: `No book has been deleted with the id: ${bookId}`})
+        res.status(200).json({message: `Deeleted the book with the id: ${bookId} `})
+    } catch (error) {
+        throw new Error(error)
+    }
+}
 export {
     getAllBooks,
     getABookById,
-    insertABook
+    insertABook,
+    updateABook,
+    deleteABook
 }
