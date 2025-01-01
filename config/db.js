@@ -1,6 +1,13 @@
 import DBConnection from "./DBConnection.js";
+import * as dotenv from "dotenv"
+dotenv.config()
 
-const connection = new DBConnection("romandb", "root", "0799959010", "localhost")
+const dbName = process.env.DB_NAME
+const dbUser = process.env.DB_USER
+const dbSecret = process.env.DB_SECRET
+const dbHost = process.env.DB_HOST
+// console.log(dbName, dbUser, dbSecret, dbHost);
+const connection = new DBConnection(dbName, dbUser, dbSecret, dbHost)
 await connection.connect()
 
 /**

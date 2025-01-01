@@ -18,6 +18,8 @@ class DBConnection {
         } catch (error) {
             throw new Error(error)
         }
+
+        return sequelize
     }
 }
 
