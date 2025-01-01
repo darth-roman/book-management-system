@@ -1,7 +1,11 @@
 import {Router} from "express";
-import { getAllBooks } from "../controllers/books.controller.js";
+import { 
+    getAllBooks,
+    getABookById
+ } from "../controllers/books.controller.js";
 const router = Router()
 
 router.get("/", getAllBooks)
+router.get("/:id", getABookById)
 
 export default router
