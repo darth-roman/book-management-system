@@ -44,18 +44,18 @@ const BookModel = Book.init({
     },
     edition: {
         type: DataTypes.INTEGER,
-
+        allowNull: true
     },
     year: {
         type: DataTypes.INTEGER,
-
+        allowNull: true
     },
     bought_year: {
         type: DataTypes.DATE
     },
     price_bought: {
         type: DataTypes.REAL,
-
+        allowNull: true
     },
     review_link: {
         type: DataTypes.STRING,
@@ -63,7 +63,10 @@ const BookModel = Book.init({
     },
     tags: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
+        // set(value){
+        //     return this.setDataValue('tags', value.join(","))
+        // }
     },
     read: {
         type: DataTypes.TINYINT,

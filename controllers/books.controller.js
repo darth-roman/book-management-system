@@ -20,12 +20,43 @@ const getABookById = async (req, res) => {
         res.status(200).json(book)
         return book
     }catch(error) {
-        
+        res.status(500).json({message: error})
+    }
+}
+
+const insertABook = async (req, res) => {
+    try {
+        const newBook = {
+            book_id: req.body.book_id,
+            title: req.body.title,
+            author: req.body.author,
+            lang: req.body.lang,
+            editor: req.body.editor,
+            genre: req.body.genre,
+            edition: req.body.edition,
+            year: req.body.year,
+            bought_year: req.body.bought_year,
+            price_bought: req.body.price_bought,
+            review_link: req.body.review_link,
+            tags: req.body.tags,
+            read: req.body.read,
+        }
+
+        const book = await BookModel.create(newBook)
+        if(!book){
+            res.status(500).json({message: `Failed to add ${newBook}`})
+        }
+
+        res.status(200).json(book)
+        return book
+    } catch (error) {
+        throw new Error(error)
     }
 }
 
 
 export {
     getAllBooks,
-    getABookById
+    getABookById,
+    insertABook
 }
