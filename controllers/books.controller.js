@@ -23,6 +23,36 @@ const getABookById = async (req, res) => {
     }
 }
 
+const getBooksByGenre = async (req, res) => {
+    try {
+        const books = await BookModel.findAll({
+            where: {
+                genre: req.params.genre
+            }
+        })
+        if(books.length === 0) res.status(404).json({message: "Nothing found here"})
+        res.status(200).json(books)
+        return books
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
+const getBooksByAuthor = async (req, res) => {
+    try {
+        const books = await BookModel.findAll({
+            where:{
+                author: req.params.author
+            }
+        })
+        if(books.length === 0) res.status(404).json({message: "Nothing found here"})
+        res.status(200).json(books)
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
+
 const insertABook = async (req, res) => {
     try {
         const newBook = {
@@ -85,6 +115,8 @@ const deleteABook = async (req, res) => {
 export {
     getAllBooks,
     getABookById,
+    getBooksByGenre,
+    getBooksByAuthor,
     insertABook,
     updateABook,
     deleteABook
